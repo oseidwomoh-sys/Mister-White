@@ -20,8 +20,7 @@ class AutomobileFactory {
         assembler = new Ford();
         break;
       case "Toyota":
-      // future implementation
-        // assembler = new Toyota();
+        assembler = new Toyota();
         break;
       // Add more manufacturers as needed
       default:

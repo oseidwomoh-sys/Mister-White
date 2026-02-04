@@ -15,8 +15,8 @@ class App {
     // Car company has multiple models for each type of car.
     
     AutomobileFactory factory = AutomobileFactory.getInstance();
-    Automobile car1 = factory.assemble("Ford", "Sedan", "Fusion", 2020);
 
+    Automobile car1 = factory.assemble("Ford", "Sedan", "Fusion", 2020);
     car1.startEngine();
     car1.honkHorn();
     car1.stopEngine();
@@ -33,6 +33,12 @@ class App {
     car3.honkHorn();
     car3.stopEngine();
     System.out.println(car3);
+
+    Automobile car4 = factory.assemble("Toyota", "Sedan", "Camry", 2022);
+    car4.startEngine();
+    car4.honkHorn();
+    car4.stopEngine();
+    System.out.println(car4);
   }
 }
 
