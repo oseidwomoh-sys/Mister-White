@@ -4,49 +4,11 @@
 package org.example;
 
 public class App {
+    public String getGreeting() {
+        return "Hello World!";
+    }
 
-  private String greeting;
-  private String greetingV2;
-
-  public String goodbye() {
-    return "Goodbye";
-  }
-
-  // v2 changes
-  public String getGreetingV2() {
-    return greetingV2;
-  }
-
-  public String getGreetingV2ToUser(String username) {
-    return greetingV2 + ", " + username;
-  }
-
-  // v1 OG
-  public String getGreeting() {
-    return greeting;
-  }
-
-  public String getGreetingToUser(String username) {
-    return greeting + ", " + username;
-  }
-
-  public App() {
-    this.greeting = "Hello";
-    this.greetingV2 = "Hi";
-  }
-
-  // 1. RED
-  // 2. GREEN
-  // 3. REFACTOR
-  //
-  public static void main(String[] args) {
-
-    // THIS PROGRAM MUST PRINT "Hello" AS GREETING
-    // THIS PROGRAM MUST ALSO PRINT "Hello, username" AS GREETING TO THE USER
-
-    // V2
-    // INSTEAD OF "Hello", USE "Hi"
-
-    System.out.println(new App().getGreeting());
-  }
+    public static void main(String[] args) {
+        System.out.println(new App().getGreeting());
+    }
 }

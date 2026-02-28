@@ -7,34 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-
-  @Test
-  void greetingShouldNotBeNull() {
-    App app = new App();
-    assertNotNull(app.getGreeting());
-  }
-
-  @Test
-  void greetingShouldNotBeEmpty() {
-    App app = new App();
-    assertFalse(app.getGreeting().isEmpty());
-  }
-
-  @Test
-  void greetingShouldBeHello() {
-    App app = new App();
-    assertEquals("hello", app.getGreeting());
-  }
-
-  @Test
-  void greetingShouldStartWithUpperCaseH() {
-    App app = new App();
-    assertTrue(app.getGreeting().startsWith("H"));
-  }
-
-  @Test
-  void greetingShouldEndWithLowerCaseello() {
-    App app = new App();
-    assertTrue(app.getGreeting().endsWith("ello"));
-  }
+    @Test void appHasAGreeting() {
+        App classUnderTest = new App();
+        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    }
 }
