@@ -3,12 +3,100 @@
  */
 package org.example;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.Scanner;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+/**
+ * Name and Lucky Number Generator App
+ *
+ * This application prompts the user for their name and a favorite number, then generates a lucky number based on the input.
+ *
+ * */
+public class App {
+
+  /**
+   * Constructor for the App class. Initializes any necessary variables or resources for the application.
+   * */
+  public App() {
+  }
+
+  /**
+   * Returns the text to ask the user for their name.
+   *
+   * @return A string containing the text to ask the user for their name.
+   * */
+  public String getTextToAskForName() {
+    return "What is your name?";
+  }
+
+  /**
+   * Returns the text to ask the user for their favorite number.
+   *
+   * @return A string containing the text to ask the user for their favorite number.
+   * */
+  public String getTextToAskForNumber() {
+    return "What is your favorite number?";
+  }
+
+  /**
+   * Validates the user's name based on the following criteria:
+   * - The name must not be null.
+   * - The name must not be empty.
+   * - The name must be at least 2 characters long.
+   * - The name must not be blank (only whitespace).
+   * - The name must not be more than 15 characters long.
+   *
+   * @param name: A string representing the user's name.
+   * @return true if the name is valid according to the criteria, false otherwise.
+   * */
+  public boolean isValid(String name) {
+    return (name == null 
+    || name.isEmpty() 
+    || name.length() < 2 
+    || name.isBlank() 
+    || name.length() > 15)? false : true;
+  }
+
+  /**
+   * Creates a lucky number by multiplying the user's favorite number by 7.
+   *
+   * @param number: An integer representing the user's favorite number.
+   * @return An integer representing the user's lucky number.
+   * */
+  public int createLuckyNumber(int number) {
+    return number * 7;
+  }
+
+  /**
+   * The main method that runs the application. It prompts the user for their name and favorite number, validates the name, generates a lucky number, and prints the results to the user.
+   *
+   * @param args: An array of strings representing command-line arguments (not used in this application).
+   * */
+  public static void main(String[] args) {
+
+    // Simple Specification:
+    // 1. The program ask the user for their name
+    // 2. The program greets the user by name
+    // 3. The program ask the user for a number
+    // 4. The program use that number to create a lucky number.
+    // 5. The program prints the lucky number to the user.
+    //
+    // String textToAskForName = "What is your name?";
+    // String textToAskForNumber = "What is your favorite number?";
+    //
+    App app = new App();
+    Scanner scanner = new Scanner(System.in);
+    System.out.println(app.getTextToAskForName());
+    String name = scanner.nextLine();
+    while (!app.isValid(name)) {
+      System.out.println(app.getTextToAskForName());
+      name = scanner.nextLine();
     }
+    System.out.println("Hello " + name + "!");
+
+    System.out.println(app.getTextToAskForNumber());
+    int number = scanner.nextInt();
+    int luckyNumber = app.createLuckyNumber(number);
+    System.out.println("Your lucky number is " + luckyNumber + "!");
+
+  }
 }

@@ -6,9 +6,74 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+// TDD:
+// 1. Write a test that fails (RED)
+// 2. Write the minimum code to make the test pass (GREEN)
+// 3. Refactor the code (REFACTOR)
+// 4. Repeat
+//
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+  @Test 
+  void askUserForNameTextShouldBeWhatIsYourName() {
+    App classUnderTest = new App();
+    String expectedText = "What is your name?";
+    assertEquals(expectedText, classUnderTest.getTextToAskForName(), "text to ask for name should be 'What is your name?'");
+  }
+
+  @Test
+  void askUserForNumberTextShouldBeWhatIsYourFavoriteNumber() {
+    App classUnderTest = new App();
+    String expectedText = "What is your favorite number?";
+    assertEquals(expectedText, classUnderTest.getTextToAskForNumber(), "text to ask for number should be 'What is your favorite number?'");
+  }
+
+  @Test
+  void nameShouldNotBeNull() {
+    App classUnderTest = new App();
+    assertFalse(classUnderTest.isValid(null), "name should not be null");
+  }
+
+  @Test
+  void nameShouldNotBeEmpty() {
+    App classUnderTest = new App();
+    assertFalse(classUnderTest.isValid(""), "name should not be empty");
+  }
+
+  @Test
+  void nameShouldBeAtLeastTwoCharacters() {
+    App classUnderTest = new App();
+    assertFalse(classUnderTest.isValid("A"), "name should be at least two characters");
+  }
+
+  @Test
+  void nameShouldNotBeBlank() {
+    App classUnderTest = new App();
+    assertFalse(classUnderTest.isValid("   "), "name should not be blank");
+  }
+
+  @Test
+  void nameShouldNotBeMoreThan15Characters() {
+    App classUnderTest = new App();
+    assertFalse(classUnderTest.isValid("This name is too long"), "name should not be more than 15 characters");
+  }
+
+  @Test
+  void luckyNumberShouldNotBeZero() {
+    App classUnderTest = new App();
+    assertNotEquals(0, classUnderTest.createLuckyNumber(5), "lucky number should not be zero");
+  }
+
+  @Test
+  void luckyNumberShouldNotBeNegative() {
+    App classUnderTest = new App();
+    assertTrue(classUnderTest.createLuckyNumber(5) > 0, "lucky number should not be negative");
+  }
+
+  @Test
+  void luckyNumberShouldBeInputTimesSeven() {
+    App classUnderTest = new App();
+    int input = 5;
+    int expectedLuckyNumber = input * 7;
+    assertEquals(expectedLuckyNumber, classUnderTest.createLuckyNumber(input), "lucky number should be input times seven");
+  }
 }
