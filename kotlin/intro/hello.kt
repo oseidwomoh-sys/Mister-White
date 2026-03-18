@@ -32,12 +32,14 @@ fun main() {
     println("1.var d = $d is between 1 and 100")
   }
 
+  // when statement can also be used as an expression, which means that it can return a value.
   val message = when(d) {
     in 1..100 -> "2.var d = $d is between 1 and 100"
     else -> "2.ELSE: var d = $d is not between 1 and 100"
   }
   println(message)
 
+  // if statement can also be used as an expression, which means that it can return a value.
   val e = if(d in 1..100) {
     "3.var d = $d is between 1 and 100"
   } else {
@@ -52,4 +54,24 @@ fun main() {
   println(pets) // [Ljava.lang.String;@1b6d3586
   println(java.util.Arrays.toString(pets)) // [Dog, Cat, Fish]
 
+  // calling a function
+  val sum = add(10, 20)
+  println("The sum of 10 and 20 is: $sum") // The sum of 10 and 20 is: 30
+
+
+  // Null Safety
+  // "?" is used to declare a nullable variable, which can hold a null value.
+  var name: String? = null // nullable variable, can hold null value
+  // var name: String = null// non-nullable variable, cannot hold null value, will cause a compile-time error
+  println(name) // null
+  // "?:", known as the Elvis operator, is used to provide a default value when the variable is null.
+  println(name?.length ?: "Name is null") // Name is null
+
+  // "!!" should be used with LOTS of caution
+  println(name!!.length) // NullPointerException at runtime, because we are trying to access the length of a null variable without checking for nullability first.
+
 }
+
+// single-expression function
+fun add(a: Int, b: Int): Int = a + b
+
