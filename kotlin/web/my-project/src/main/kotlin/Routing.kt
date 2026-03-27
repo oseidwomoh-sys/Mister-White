@@ -18,5 +18,9 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
+
+        // route with parameters
+        // http://localhost:8080/greet/Hendrix
+
     }
 }
