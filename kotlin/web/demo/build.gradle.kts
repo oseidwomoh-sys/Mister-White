@@ -26,6 +26,11 @@ dependencies {
     implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml")
+    // ZXing Core: The math behind the QR code
+    implementation("com.google.zxing:core:3.5.3")
+    // ZXing JavaSE: Utility to convert BitMatrix to images
+    implementation("com.google.zxing:javase:3.5.3")
+
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
