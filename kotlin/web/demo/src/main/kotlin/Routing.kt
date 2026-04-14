@@ -16,33 +16,38 @@ import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 import java.util.Base64
+import io.ktor.http.ContentType
 
 @Serializable
 data class User(val id: String, val name: String )
 
 @Serializable
-data class QrCodeResponse(val data: String, val base64Image: String)
+data class AwesomeResponse(
+  val status: String = "success",
+  val message: String = "Hello, Awesome!"
+)
+
+@Serializable
+data class QrCodeResponse (
+  val data: String,
+  val base64Image: String
+)
 
 fun bitMatrixToPngBase64(bitMatrix: BitMatrix): String {
-    // get width and height from Matrix
-    val width = bitMatrix.width
-    val height = bitMatrix.height
+  val width = bitMatrix.width
+  val height = bitMatrix.height
+  val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
 
-    // creates an image using a buffer
-    val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
-
-    // loop the Matrix to set image buffer
-    for (x in 0 until width) {
-        for (y in 0 until height) {
-            image.setRGB(x,y, if(bitMatrix.get(x,y)) 0xFF000000.toInt() else 0xFFFFFF.toInt())
-        }
+  for (x in 0 until width) {
+    for (y in 0 until height) {
+      image.setRGB(x, y, if (bitMatrix.get(x, y)) 0xFF000000.toInt() else 0xFFFFFFFF.toInt())
     }
+  }
+  val outputStream = ByteArrayOutputStream()
+  ImageIO.write(image, "PNG", outputStream)
+  val pngBytes = outputStream.toByteArray()
 
-    val outputStream = ByteArrayOutputStream()
-    ImageIO.write(image, "PNG", outputStream)
-    val pngBytes = outputStream.toByteArray()
-
-    return Base64.getEncoder().encodeToString(pngBytes)
+  return Base64.getEncoder().encodeToString(pngBytes)
 }
 
 fun Application.configureRouting() {
@@ -59,16 +64,34 @@ fun Application.configureRouting() {
 
 //            return@get call.respondText("Viewing user with id: $id!")
         }
+        get("/greet") {
+           val response = AwesomeResponse()
+           call.respond(response)
+        }
 
         get("/qr-json") {
-            val data = call.request.queryParameters["data"] ?: return@get call.respondText("data is missing")
+          val data = call.request.queryParameters["data"] ?: "https://ktor.io"
 
-            val bitMatrix = MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 200, 200)
-            val base64Image = bitMatrixToPngBase64(bitMatrix)
+          val bitMatrix = MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 200, 200)
+          val base64Image = bitMatrixToPngBase64(bitMatrix)
 
-            val response = QrCodeResponse(data, base64Image)
+          val response = QrCodeResponse(
+            data = data,
+            base64Image = base64Image
+          )
+          call.respond(response)
+        }
 
-            call.respond(response)
+        get("/qr-img") {
+          val data = call.request.queryParameters["data"] ?: "https://ktor.io"
+
+          val bitMatrix = MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 200, 200)
+          val base64Image = bitMatrixToPngBase64(bitMatrix)
+
+          call.respondBytes(
+            bytes = Base64.getDecoder().decode(base64Image),
+            contentType = ContentType.Image.PNG
+          )
         }
 
         // Static plugin. Try to access `/static/index.html`
