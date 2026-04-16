@@ -53,7 +53,7 @@ fun bitMatrixToPngBase64(bitMatrix: BitMatrix): String {
 fun Application.configureRouting() {
 
     routing {
-        get("/") {
+        get("/") { // root endpoint
             call.respondText("Hello World!")
         }
 
