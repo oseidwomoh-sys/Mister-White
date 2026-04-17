@@ -65,6 +65,7 @@ fun Application.module(studentDb: ConcurrentHashMap<String, Student>) {
 
         // C. QR GENERATOR (Query Parameters & Image Response)
         get("/generate-id") {
+          val sid = call.request.queryParameters["sid"]
           // NOT IMPLEMENTED: 
           //
           // This endpoint would generate a QR code for the student ID, 
