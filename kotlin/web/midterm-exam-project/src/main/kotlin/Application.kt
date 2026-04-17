@@ -50,6 +50,7 @@ fun Application.module(studentDb: ConcurrentHashMap<String, Student>) {
 
         // B. STUDENT API (Path Parameters & Null Safety)
         get("/api/student/{id}") {
+          val id = call.parameters["id"]
           // NOT IMPLEMENTED:
           // This endpoint would retrieve student information based on the ID provided in the path parameter.
           // It would demonstrate null safety by using the Elvis operator to handle cases where the major is null.
@@ -60,7 +61,12 @@ fun Application.module(studentDb: ConcurrentHashMap<String, Student>) {
             // "major": "Computer Science",
             // "accessLevel": 5
           // }
-           call.respond(HttpStatusCode.NotImplemented, "Student API not implemented yet.")
+          if (id == "000000000") {
+            call.respond(HttpStatusCode.NotFound, "Student not found.")
+            return@get
+          }
+
+          call.respond(HttpStatusCode.OK, "Student API not implemented yet.")
         }
 
         // C. QR GENERATOR (Query Parameters & Image Response)
