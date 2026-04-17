@@ -61,12 +61,7 @@ fun Application.module(studentDb: ConcurrentHashMap<String, Student>) {
             // "major": "Computer Science",
             // "accessLevel": 5
           // }
-          if (id == "000000000") {
-            call.respond(HttpStatusCode.NotFound, "Student not found.")
-            return@get
-          }
-
-          call.respond(HttpStatusCode.OK, "Student API not implemented yet.")
+          call.respond(HttpStatusCode.NotImplemented, "Student API not implemented yet.")
         }
 
         // C. QR GENERATOR (Query Parameters & Image Response)
